@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-4 h-screen w-full bg-linear-to-r bg-scroll from-cyan-500 to-blue-500">
+  <backlog-info [userName]="userName" [isAddGameDialogOpen]="isAddGameDialogOpen"></backlog-info>
+  <div class="flex-1 h-full">
+    <ol cdkDropListGroup class="flex gap-4 h-full px-4 overflow-x-auto column-list">
+      <backlog-column
+        status="status"
+        [label]="backlogColumnLabels.backlog"
+        [backlogGames]="backlogGames['backlog']"
+      />
+      <backlog-column
+        status="status"
+        [label]="backlogColumnLabels.playing"
+        [backlogGames]="backlogGames['playing']"
+      />
+      <backlog-column
+        status="status"
+        [label]="backlogColumnLabels['on-hold']"
+        [backlogGames]="backlogGames['on-hold']"
+      />
+      <backlog-column
+        status="status"
+        [label]="backlogColumnLabels.completed"
+        [backlogGames]="backlogGames['completed']"
+      />
+      <backlog-column
+        status="status"
+        [label]="backlogColumnLabels.dropped"
+        [backlogGames]="backlogGames['dropped']"
+      />
+    </ol>
+  </div>
+</div>

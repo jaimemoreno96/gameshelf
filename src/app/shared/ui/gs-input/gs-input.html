@@ -1,0 +1,41 @@
+<label [for]="id()" class="mb-2 block text-sm font-medium text-gray-300">
+  {{ label() }}
+  @if (required()) {
+    <span aria-hidden="true" class="text-red-500">*</span>
+    <span class="sr-only">(required)</span>
+  }
+</label>
+
+<input
+  [id]="id()"
+  [name]="name()"
+  [type]="type()"
+  [value]="value()"
+  [placeholder]="placeholder() ?? ''"
+  [attr.autocomplete]="autocomplete()"
+  [required]="required()"
+  [disabled]="isDisabled()"
+  [attr.aria-invalid]="error() ? 'true' : null"
+  [attr.aria-describedby]="
+    hint() || error()
+      ? [hint() ? id() + '-hint' : '', error() ? id() + '-error' : ''].join(' ').trim()
+      : null
+  "
+  (input)="handleInput($event)"
+  (change)="handleOnChange()"
+  (blur)="handleOnBlur()"
+  class="w-full rounded-md border bg-slate-900 px-3 py-2.5 text-sm text-gray-100 shadow-sm outline-none transition-colors placeholder:text-gray-500 focus:ring-2 border-slate-700 focus:border-blue-500 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+  [class.border-red-500]="error()"
+  [class.focus:border-red-500]="error()"
+  [class.focus:ring-red-500]="error()"
+/>
+
+@if (hint()) {
+  <p [id]="id() + '-hint'" class="mt-1.5 text-xs text-gray-400">{{ hint() }}</p>
+}
+
+@if (error()) {
+  <p [id]="id() + '-error'" role="alert" aria-live="polite" class="mt-1.5 text-xs text-red-400">
+    {{ error() }}
+  </p>
+}

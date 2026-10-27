@@ -1,0 +1,21 @@
+<form action="flex flex-col w-full gap-4">
+    <h1 class="text-2xl font-bold text-white">Add a new game</h1>
+    <!-- <app-gs-autocomplete
+        label="Search for a game..."
+        id="search"
+        type="text"
+        placeholder="example: Super Mario Bros"
+        (handleOnChange)="handleOnChange()"
+        (handleOnBlur)="handleOnBlur()"
+    /> -->
+    <gs-input
+        id="game-title"
+        name="title"
+        label="Game Title"
+        type="text"
+        placeholder="Enter the game title"
+        [required]="true"
+        [handleOnChange]="handleOnChange"
+        [handleOnBlur]="handleOnBlur"
+    />
+</form>

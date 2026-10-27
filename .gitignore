@@ -42,3 +42,17 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+#IOS MetaData
+._*
+
+# Other
+best-practices.md
+AGENTS.md
+
+# Opencode generated files
+opencode.json
+.opencode/*
+
+# Angular build files
+.angular/cache

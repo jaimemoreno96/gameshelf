@@ -1,0 +1,49 @@
+@if (open()) {
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-4"
+    role="presentation"
+    (click)="onBackdropClick($event)"
+  >
+    <section
+      [class]="
+        'relative w-full rounded-xl border border-slate-600 bg-slate-900 p-4 shadow-xl md:p-6 ' +
+        sizeClass()
+      "
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="title() ? labelId() : null"
+      [attr.aria-label]="title() ? null : 'Dialog'"
+    >
+      <header class="flex items-center justify-between gap-4 border-b border-slate-600 pb-4">
+        @if (hasHeaderSlot()) {
+          <ng-content select="[dialog-header]" />
+        } @else {
+          <h2 [id]="labelId()" class="text-lg font-semibold text-white">
+            {{ title() }}
+          </h2>
+        }
+
+        @if (dismissible()) {
+          <button
+            type="button"
+            class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-slate-400 hover:bg-slate-700 hover:text-white hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Close dialog"
+            (click)="close()"
+          >
+            <span aria-hidden="true" class="text-xl leading-none">&times;</span>
+          </button>
+        }
+      </header>
+
+      <div class="py-4 text-slate-200 md:py-6">
+        <ng-content />
+      </div>
+
+      @if (hasFooterSlot()) {
+        <footer class="flex items-center gap-3 border-t border-slate-600 pt-4">
+          <ng-content select="[dialog-footer]" />
+        </footer>
+      }
+    </section>
+  </div>
+}

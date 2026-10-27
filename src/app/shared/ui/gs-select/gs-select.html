@@ -1,0 +1,47 @@
+<label [for]="id()" class="mb-2 block text-sm font-medium text-gray-300">
+  {{ label() }}
+  @if (required()) {
+    <span aria-hidden="true" class="text-red-500">*</span>
+    <span class="sr-only">(required)</span>
+  }
+</label>
+
+<select
+  [id]="id()"
+  [name]="name()"
+  [value]="value()"
+  [required]="required()"
+  [disabled]="isDisabled()"
+  [attr.aria-invalid]="error() ? 'true' : null"
+  [attr.aria-describedby]="
+    hint() || error()
+      ? [hint() ? id() + '-hint' : '', error() ? id() + '-error' : ''].join(' ').trim()
+      : null
+  "
+  (change)="handleChange($event)"
+  (blur)="handleBlur()"
+  class="w-full rounded-md border bg-slate-900 px-3 py-2.5 text-sm shadow-sm outline-none transition-colors focus:ring-2 border-slate-700 focus:border-blue-500 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+  [class.text-gray-500]="value() === ''"
+  [class.text-gray-100]="value() !== ''"
+  [class.border-red-500]="error()"
+  [class.focus:border-red-500]="error()"
+  [class.focus:ring-red-500]="error()"
+>
+  <option [value]="''" [disabled]="true" [selected]="value() === ''">
+    {{ placeholder() ?? '' }}
+  </option>
+
+  @for (option of options(); track option.value) {
+    <option [value]="option.value">{{ option.label }}</option>
+  }
+</select>
+
+@if (hint()) {
+  <p [id]="id() + '-hint'" class="mt-1.5 text-xs text-gray-400">{{ hint() }}</p>
+}
+
+@if (error()) {
+  <p [id]="id() + '-error'" role="alert" aria-live="polite" class="mt-1.5 text-xs text-red-400">
+    {{ error() }}
+  </p>
+}
